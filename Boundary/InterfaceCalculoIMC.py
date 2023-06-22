@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-
 from tkinter import ttk
+from Control.CalculoIMC import CalculoIMCController
 
 #funciones
 def opcionCurso():
@@ -39,7 +39,7 @@ infoUsu = LabelFrame(frame,text="Seleccionar Curso")
 infoUsu.grid(row=1,column=1)
 
 #selecciona curso
-cursos = ["Option 1", "Option 2", "Option 3", "Option 4"]
+cursos = ["Curso 1", "Curso 2", "Curso 3", "Curso 4"]
 valCurso = StringVar(ventanaImc)
 valCurso.set('Selecciona un Curso')
 selecCurso = OptionMenu(infoUsu,valCurso,*cursos)
@@ -99,3 +99,6 @@ buttonRegresar.grid(row=0, column=2)
 
 
 ventanaImc.mainloop()
+
+# registro = CalculoIMCController.calcularIMC(peso, altura, rut)
+# registro.__valor,registro.__rango, registro.__fecha, registro.__peso, registro.__altura, registro.__rut_estudiante
