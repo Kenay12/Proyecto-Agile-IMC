@@ -8,9 +8,8 @@ db="Proyecto-Agile-IMC"
 def ingresar(reg):
     try:
         con=Conexion(host,user,password,db)
-        sql="Insert Into registro set rut='{}',nombre='{}',apellido='{}',mail='{}'," \
-            "clave='{}',fechaNacimiento='{}'".format(reg.rut,reg.nombre,
-                                       reg.apellido,reg.mail,reg.clave,reg.fechaNacimiento)
+        sql="Insert Into registro set rut='{}',nombre='{}',apellido='{}',mail='{}',fechaNacimiento='{}'" \
+            "".format(reg.rut,reg.nombre,reg.apellido,reg.mail,reg.fechaNacimiento)
         con.ejecuta_query(sql)
         con.commit()
         input("\n\n Datos Ingresados con Éxito, presione una tecla para continuar")
@@ -22,8 +21,8 @@ def ingresar(reg):
 def modificar(reg):
     try:
         con=Conexion(host,user,password,db)
-        sql="UPDATE registro SET rut='{}',nombre='{}',apellido='{}',mail='{}',clave='{}',fechaNacimiento='{}'" \
-            "WHERE idCurso={}".format(reg[1],reg[2],reg[3],reg[4],reg[5],,reg[6],reg[0])
+        sql="UPDATE registro SET rut='{}',nombre='{}',apellido='{}',mail='{}',fechaNacimiento='{}'" \
+            "WHERE idCurso={}".format(reg[1],reg[2],reg[3],reg[4],reg[5],reg[0])
 
         con.ejecuta_query(sql)
         con.commit()
