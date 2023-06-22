@@ -1,11 +1,12 @@
 class Registro:
-    def __init__(self,run,nombre,apellido,mail,fecha_nam):
-        self.rut=run
-        self.nombre=nombre
-        self.apellido=apellido
-        self.mail=mail
-
-        self.fecha_nacimiento= fecha_nam
+    def __init__(self,imc,registro,rango,fecha_reali,peso,rut,altura):
+        self.__imc = imc
+        self.__registro = registro
+        self.__rango = rango
+        self.__fecha_reali = fecha_reali
+        self.__peso = peso
+        self.__rut = rut
+        self.__altura = altura
 
 
 

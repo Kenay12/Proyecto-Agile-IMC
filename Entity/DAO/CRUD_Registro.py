@@ -1,4 +1,4 @@
-from DTO.Conexion import Conexion
+from Entity.DTO.Conexion import Conexion
 
 host="localhost"
 user="root"
@@ -8,8 +8,8 @@ db="Proyecto-Agile-IMC"
 def ingresar(reg):
     try:
         con=Conexion(host,user,password,db)
-        sql="Insert Into registro set rut='{}',nombre='{}',apellido='{}',mail='{}',fechaNacimiento='{}'" \
-            "".format(reg.rut,reg.nombre,reg.apellido,reg.mail,reg.fechaNacimiento)
+        sql="Insert Into imc set valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}',rut = '{}'" \
+            "".format(reg.valor,reg.rango,reg.fecha,reg.peso,reg.altura,reg.rut)
         con.ejecuta_query(sql)
         con.commit()
         input("\n\n Datos Ingresados con Éxito, presione una tecla para continuar")
@@ -21,7 +21,7 @@ def ingresar(reg):
 def modificar(reg):
     try:
         con=Conexion(host,user,password,db)
-        sql="UPDATE registro SET rut='{}',nombre='{}',apellido='{}',mail='{}',fechaNacimiento='{}'" \
+        sql="UPDATE registro SET valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}'" \
             "WHERE idCurso={}".format(reg[1],reg[2],reg[3],reg[4],reg[5],reg[0])
 
         con.ejecuta_query(sql)
