@@ -13,12 +13,12 @@ ventanaImc = Tk()
 ventanaImc.title("Sistema de seguimiento IMC")
 
 #Variables
-peso = DoubleVar()
-altura = DoubleVar()
-rut = IntVar()
-registro = CalculoIMCController.calcularIMC(peso, altura, rut)
+peso = IntVar()
+altura = IntVar()
+rut = StringVar()
+
+# registro = CalculoIMCController.calcularIMC(peso, altura, rut)
 # registro.__valor,registro.__rango, registro.__fecha, registro.__peso, registro.__altura, registro.__rut_estudiante
-resultado = DoubleVar()
 
 
 
@@ -57,17 +57,23 @@ infoImc.grid(row=6,column=1,ipadx=40,ipady=20)
 #Ingresar Imc
 labelPeso = Label(infoImc, text='Peso (kg): ')
 labelAltura = Label(infoImc, text='Altura (m): ')
-labelEdad = Label(infoImc, text='Edad: ')
+labelRut = Label(infoImc, text='Rut: ')
 entryPeso = Entry(infoImc, width=40, textvariable=peso,validate="key")
 entryAltura = Entry(infoImc,width=40, textvariable=altura, validate="key")
+entryRut = Entry(infoImc,width=40, textvariable=rut, validate="key")
 labelPeso.grid(row=0, sticky=W)
 labelAltura.grid(row=1,sticky=W)
+labelRut.grid(row=2,sticky=W)
 entryPeso.grid(row=0, column=1)
 entryAltura.grid(row=1, column=1)
+entryRut.grid(row=2, column=1)
+
+def mostrar():
+    CalculoIMCController().calcularIMC(peso.get(), altura.get(), rut.get())
 
 
 #Boton Calcular
-calculoIMC = Button(infoImc, text ="Calcular")
+calculoIMC = Button(infoImc, text ="Calcular", command=mostrar)
 calculoIMC.grid(row=7, column=1)
 
 #legend3
@@ -93,13 +99,11 @@ buttonRegresar = Button(frame, text ="Regresar")
 buttonRegresar.grid(row=0, column=2)
 
 
-
-
+# CalculoIMCController().calcularIMC(peso.get(), altura.get(), rut.get())
 
 
 
 ventanaImc.mainloop()
-
 
 
 # registro = CalculoIMCController.calcularIMC(peso, altura, rut)

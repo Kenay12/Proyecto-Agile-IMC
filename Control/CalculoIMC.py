@@ -23,10 +23,7 @@ class CalculoIMCController:
             else:
                 rango = "Obesidad"
             registro = RegistroController(valor, rango, self.fechaActual(), peso, altura, rut)
-            try:
-                ingresar(registro)
-            except Exception as e:
-                return "Error al ingresar en {}".format(e)
+            ingresar(registro)
             return registro
         else:
             return "Valores inválidos"

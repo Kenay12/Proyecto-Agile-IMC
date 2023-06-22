@@ -1,7 +1,7 @@
 import pymysql
 
 class Conexion:
-    def __int__(self,host,user,passwd,db):
+    def __init__(self,host,user, passwd,db):
         self.db = pymysql.connect(
             host = host,
             user = user,

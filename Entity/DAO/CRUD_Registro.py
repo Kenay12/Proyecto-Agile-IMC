@@ -1,21 +1,23 @@
 from Entity.DTO.Conexion import Conexion
 
+
 host="localhost"
-user="root"
-password=""
+user="imc_usuario"
+password="123"
 db="proyecto_imc"
 
 def ingresar(reg):
     try:
         con=Conexion(host,user,password,db)
         sql="Insert Into imc set valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}',rut_estudiante = '{}'" \
-            "".format(reg.__valor,reg.__rango,reg.__fecha,reg.__peso,reg.__altura,reg.__rut_estudiante)
+            "".format("2asd",reg.rango,reg.fecha,reg.peso,reg.altura,reg.rut_estudiante)
         con.ejecuta_query(sql)
         con.commit()
         con.desconectar()
+        print("asdasassssssssssssssssssssssssssssssssssssssss")
 
     except Exception as e:
-        return e
+        print(e)
 
 def modificar(reg):
     try:
