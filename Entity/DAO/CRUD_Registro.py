@@ -3,20 +3,19 @@ from Entity.DTO.Conexion import Conexion
 host="localhost"
 user="root"
 password=""
-db="Proyecto-Agile-IMC"
+db="proyecto_imc"
 
 def ingresar(reg):
     try:
         con=Conexion(host,user,password,db)
-        sql="Insert Into imc set valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}',rut = '{}'" \
-            "".format(reg.valor,reg.rango,reg.fecha,reg.peso,reg.altura,reg.rut)
+        sql="Insert Into imc set valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}',rut_estudiante = '{}'" \
+            "".format(reg.__valor,reg.__rango,reg.__fecha,reg.__peso,reg.__altura,reg.__rut_estudiante)
         con.ejecuta_query(sql)
         con.commit()
-        input("\n\n Datos Ingresados con Éxito, presione una tecla para continuar")
         con.desconectar()
 
     except Exception as e:
-        print("Error en la Función Ingresar: ",e)
+        return e
 
 def modificar(reg):
     try:

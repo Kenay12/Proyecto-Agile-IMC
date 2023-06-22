@@ -1,15 +1,12 @@
+from Control.CalculoIMC import CalculoIMCController
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from Control.CalculoIMC import CalculoIMCController
 
 #funciones
 def opcionCurso():
-    print("Selecciona un curso: {}".format(value_inside.get()))
+    print("Selecciona un curso: {}".format())
     return None
-def operacion():
-    resultado = float(peso/(altura*altura))
-    return resultado
 
 #inicializacion de la interfaz
 ventanaImc = Tk()
@@ -18,6 +15,9 @@ ventanaImc.title("Sistema de seguimiento IMC")
 #Variables
 peso = DoubleVar()
 altura = DoubleVar()
+rut = IntVar()
+registro = CalculoIMCController.calcularIMC(peso, altura, rut)
+# registro.__valor,registro.__rango, registro.__fecha, registro.__peso, registro.__altura, registro.__rut_estudiante
 resultado = DoubleVar()
 
 
@@ -99,6 +99,8 @@ buttonRegresar.grid(row=0, column=2)
 
 
 ventanaImc.mainloop()
+
+
 
 # registro = CalculoIMCController.calcularIMC(peso, altura, rut)
 # registro.__valor,registro.__rango, registro.__fecha, registro.__peso, registro.__altura, registro.__rut_estudiante

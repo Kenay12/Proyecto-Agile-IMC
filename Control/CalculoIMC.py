@@ -1,5 +1,6 @@
 from datetime import date
-from RegistroController import RegistroController
+from Control.RegistroController import RegistroController
+from Entity.DAO.CRUD_Registro import ingresar
 
 
 class CalculoIMCController:
@@ -21,6 +22,11 @@ class CalculoIMCController:
                 rango = "Sobrepeso"
             else:
                 rango = "Obesidad"
-            return RegistroController(valor, rango, self.fechaActual(), peso, altura, rut)
+            registro = RegistroController(valor, rango, self.fechaActual(), peso, altura, rut)
+            try:
+                ingresar(registro)
+            except Exception as e:
+                return "Error al ingresar en {}".format(e)
+            return registro
         else:
             return "Valores inválidos"
