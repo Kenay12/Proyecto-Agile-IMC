@@ -13,8 +13,8 @@ ventanaImc = Tk()
 ventanaImc.title("Sistema de seguimiento IMC")
 
 #Variables
-peso = IntVar()
-altura = IntVar()
+peso = DoubleVar()
+altura = DoubleVar()
 rut = StringVar()
 
 # registro = CalculoIMCController.calcularIMC(peso, altura, rut)

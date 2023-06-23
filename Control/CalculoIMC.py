@@ -13,7 +13,8 @@ class CalculoIMCController:
     
     def calcularIMC(self, peso, altura, rut):
         if (peso >= 15 and peso <= 90) and (altura >= 0.4 and altura <= 2.0):
-            valor = round(peso / (altura ** 2), 1)
+            valor = round(peso / (altura ** 2), 3)
+            print(valor)
             if valor < 18.5:
                 rango = "Peso bajo"
             elif valor >= 18.5 and valor < 25.0:
