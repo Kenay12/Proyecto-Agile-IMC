@@ -10,11 +10,10 @@ def ingresar(reg):
     try:
         con=Conexion(host,user,password,db)
         sql="Insert Into imc set valor='{}',rango='{}',fecha='{}',peso='{}',altura='{}',rut_estudiante = '{}'" \
-            "".format("2asd",reg.rango,reg.fecha,reg.peso,reg.altura,reg.rut_estudiante)
+            "".format(reg.valor,reg.rango,reg.fecha,reg.peso,reg.altura,reg.rut_estudiante)
         con.ejecuta_query(sql)
         con.commit()
         con.desconectar()
-        print("asdasassssssssssssssssssssssssssssssssssssssss")
 
     except Exception as e:
         print(e)

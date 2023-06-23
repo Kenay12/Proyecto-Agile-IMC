@@ -16,6 +16,8 @@ ventanaImc.title("Sistema de seguimiento IMC")
 peso = DoubleVar()
 altura = DoubleVar()
 rut = StringVar()
+imc = StringVar()
+rango = StringVar()
 
 # registro = CalculoIMCController.calcularIMC(peso, altura, rut)
 # registro.__valor,registro.__rango, registro.__fecha, registro.__peso, registro.__altura, registro.__rut_estudiante
@@ -68,8 +70,19 @@ entryPeso.grid(row=0, column=1)
 entryAltura.grid(row=1, column=1)
 entryRut.grid(row=2, column=1)
 
+
 def mostrar():
-    CalculoIMCController().calcularIMC(peso.get(), altura.get(), rut.get())
+    valorPeso = peso.get()
+    valorAltura = altura.get()
+    valorRut = rut.get()
+    registroIMC = CalculoIMCController().calcularIMC(valorPeso, valorAltura, valorRut)
+    if isinstance(registroIMC, str):
+        imc.set(registroIMC)
+        rango.set(registroIMC)
+    else:
+        imc.set(registroIMC.valor)
+        rango.set(registroIMC.rango)
+    return registroIMC
 
 
 #Boton Calcular
@@ -83,11 +96,11 @@ infoResulImc.grid(row=10,column=1,ipadx=40,ipady=10)
 #caja de resultado y descriptivo
 resultado = Label(infoResulImc, text="IMC =")
 resultado.grid(row=0, column=0)
-resulEntry = Entry(infoResulImc,width=40,state="disabled")
+resulEntry = Entry(infoResulImc,width=40,state="disabled", textvariable=imc)
 resulEntry.grid(row=0, column=1)
 descriptivo = Label(infoResulImc, text="Descriptivo =")
 descriptivo.grid(row=1, column=0)
-descriptivo = Entry(infoResulImc,width=40,state="disabled")
+descriptivo = Entry(infoResulImc,width=40,state="disabled", textvariable=rango)
 descriptivo.grid(row=1, column=1)
 
 #boton salir y regresar
