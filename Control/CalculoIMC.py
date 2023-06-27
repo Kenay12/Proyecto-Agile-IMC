@@ -12,13 +12,13 @@ class CalculoIMCController:
         return fechaActual
     
     def calcularIMC(self, peso, altura, rut):
-        if (peso >= 15 and peso <= 90) and (altura >= 0.4 and altura <= 2.0):
+        if (15 <= peso <= 90) and (0.4 <= altura <= 2.0):
             valor = round(peso / (altura ** 2), 1)
             if valor < 18.5:
                 rango = "Peso bajo"
-            elif valor >= 18.5 and valor < 25.0:
+            elif 18.5 <= valor < 25.0:
                 rango = "Peso normal"
-            elif valor >= 25.0 and valor < 30.0:
+            elif 25.0 <= valor < 30.0:
                 rango = "Sobrepeso"
             else:
                 rango = "Obesidad"
