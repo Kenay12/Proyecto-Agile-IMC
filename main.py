@@ -1,1 +1,3 @@
+from Boundary.InterfaceCalculoIMC import InterfaceCalculadoraIMC
 
+InterfaceCalculadoraIMC()
