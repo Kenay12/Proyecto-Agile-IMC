@@ -23,7 +23,12 @@ class CalculoIMCController:
             else:
                 rango = "Obesidad"
             registro = RegistroController(valor, rango, self.fechaActual(), peso, altura, rut)
-            ingresar(registro)
             return registro
         else:
             return "Valores inválidos"
+
+    def ingresarIMC(self, peso, altura, rut):
+        registro = self.calcularIMC(peso, altura, rut)
+        if not isinstance(registro, str):
+            ingresar(registro)
+        return registro
