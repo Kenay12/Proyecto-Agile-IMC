@@ -1,5 +1,4 @@
 from Control.CalculoIMC import CalculoIMCController
-from Control.EstudianteController import EstudianteController
 from tkinter import *
 from tkinter import messagebox, ttk
 
@@ -13,20 +12,7 @@ class InterfaceCalculadoraIMC:
 
         # funciones
         def mostrarAlumnos(curso):
-            alumnos_por_curso = {
-                "Quinto Básico A": [EstudianteController("11.111.111-1", "Bastián", "Zarate", "01-01-2000", 1, 1),
-                                    EstudianteController("22.222.222-2", "Nicolás", "Zarate", "01-01-2000", 1, 1),
-                                    EstudianteController("33.333.333-3", "Valencia", "Zarate", "01-01-2000", 1, 1)],
-                "Quinto Básico B": [EstudianteController("44.444.444-4", "Vidal", "Zarate", "01-01-2000", 1, 1),
-                                    EstudianteController("55.555.555-5", "Medel", "Zarate", "01-01-2000", 1, 1),
-                                    EstudianteController("66.666.666-6", "Landeros", "Zarate", "01-01-2000", 1, 1)],
-                "Sexto Básico A": [EstudianteController("77.777.777-7", "Guerra", "Zarate", "01-01-2000", 1, 1),
-                                   EstudianteController("88.888.888-8", "Assadi", "Zarate", "01-01-2000", 1, 1),
-                                   EstudianteController("99.999.999-9", "Sanchez", "Zarate", "01-01-2000", 1, 1)],
-                "Sexto Básico B": [EstudianteController("12.345.678-9", "Messi", "Zarate", "01-01-2000", 1, 1),
-                                   EstudianteController("98.765.432-1", "Julian", "Zarate", "01-01-2000", 1, 1),
-                                   EstudianteController("00.000.000-0", "Mono", "Sanchez", "01-01-2000", 1, 1)]
-            }
+            alumnos_por_curso = CalculoIMCController().obtenerListaAlumno()
 
             # Obtener la lista de alumnos correspondiente al curso seleccionado
             lista_alumnos = []
@@ -75,7 +61,7 @@ class InterfaceCalculadoraIMC:
         # Crear un Combobox para seleccionar un curso
         curso_label = Label(infoImc, text="Seleccione Curso:", bg=colorFondo)
         curso_label.grid(row=0, sticky=W)
-        cursos = ["Quinto Básico A", "Quinto Básico B", "Sexto Básico A", "Sexto Básico B"]
+        cursos = CalculoIMCController().obtenerCursos()
         # definiremos las variables del los option menus
         curso_var = StringVar(infoImc)
         alumno_var = StringVar()
@@ -98,40 +84,16 @@ class InterfaceCalculadoraIMC:
         entryPeso.grid(row=2, column=1)
         entryAltura.grid(row=3, column=1)
 
-        def calculoIMC():
-            valorPeso = peso.get()
-            valorAltura = altura.get()
-            valorRut = alumno_var.get().split(" - ")[0]
-            calculoIMC = CalculoIMCController().calcularIMC(valorPeso, valorAltura, valorRut)
-            if isinstance(calculoIMC, str):
-                imc.set(calculoIMC)
-                rango.set(calculoIMC)
-            else:
-                imc.set(calculoIMC.valor)
-                rango.set(calculoIMC.rango)
-            infoResulImc.grid(row=9, column=1, ipadx=26, ipady=10, pady=6)
-            return calculoIMC
-
-        def guardarCalculo():
-            valorPeso = peso.get()
-            valorAltura = altura.get()
-            valorRut = alumno_var.get().split(" - ")[0]
-            registroIMC = CalculoIMCController().ingresarIMC(valorPeso, valorAltura, valorRut)
-            if isinstance(registroIMC, str):
-                imc.set(registroIMC)
-                rango.set(registroIMC)
-            else:
-                imc.set(registroIMC.valor)
-                rango.set(registroIMC.rango)
-            infoResulImc.grid(row=9, column=1, ipadx=26, ipady=10, pady=6)
-            return registroIMC
-
         # Boton Guardar
-        btnGuardar = Button(infoImc, text="Guardar", command=guardarCalculo, bg=colorVerde)
+        btnGuardar = Button(infoImc, text="Guardar",
+                            command=lambda: self.guardarCalculo(peso, altura, alumno_var, imc, rango, infoResulImc),
+                            bg=colorVerde)
         btnGuardar.grid(row=6, column=0, pady=6)
 
         # Boton Calcular
-        calculoIMC = Button(infoImc, text="Calcular", command=calculoIMC, bg=colorVerde)
+        calculoIMC = Button(infoImc, text="Calcular",
+                            command=lambda: self.calculoIMC(peso, altura, alumno_var, imc, rango, infoResulImc),
+                            bg=colorVerde)
         calculoIMC.grid(row=6, column=1, pady=6)
 
         # legend3
@@ -158,3 +120,31 @@ class InterfaceCalculadoraIMC:
         buttonRegresar.grid(row=0, column=2, padx=4)
 
         ventanaImc.mainloop()
+
+    def calculoIMC(self, peso, altura, alumno_var, imc, rango, infoResulImc):
+        valorPeso = peso.get()
+        valorAltura = altura.get()
+        valorRut = alumno_var.get().split(" - ")[0]
+        calculoIMC = CalculoIMCController().calcularIMC(valorPeso, valorAltura, valorRut)
+        if isinstance(calculoIMC, str):
+            imc.set(calculoIMC)
+            rango.set(calculoIMC)
+        else:
+            imc.set(calculoIMC.valor)
+            rango.set(calculoIMC.rango)
+        infoResulImc.grid(row=9, column=1, ipadx=26, ipady=10, pady=6)
+        return calculoIMC
+
+    def guardarCalculo(self, peso, altura, alumno_var, imc, rango, infoResulImc):
+        valorPeso = peso.get()
+        valorAltura = altura.get()
+        valorRut = alumno_var.get().split(" - ")[0]
+        registroIMC = CalculoIMCController().ingresarIMC(valorPeso, valorAltura, valorRut)
+        if isinstance(registroIMC, str):
+            imc.set(registroIMC)
+            rango.set(registroIMC)
+        else:
+            imc.set(registroIMC.valor)
+            rango.set(registroIMC.rango)
+        infoResulImc.grid(row=9, column=1, ipadx=26, ipady=10, pady=6)
+        return registroIMC
