@@ -1,3 +1,3 @@
-from Boundary.InterfaceCalculoIMC import InterfaceCalculadoraIMC
+from Boundary.InterfaceLogin import PanelLogin
 
-InterfaceCalculadoraIMC()
+PanelLogin()
