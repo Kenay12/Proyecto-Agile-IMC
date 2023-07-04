@@ -12,7 +12,7 @@ def ingresar(estudiante):
     sql = "INSERT INTO estudiante SET rut='{}', nombres='{}', apellidos='{}', fecha_nacimiento='{}', " \
           "sexo='{}', id_curso='{}'".format(estudiante.rut.get(), estudiante.nombres.get(),
                                                 estudiante.apellidos.get(), estudiante.fecha_nac.get(),
-                                                estudiante.sexo.get(), estudiante.id_curso.get())
+                                                estudiante.intSexo, estudiante.id_curso)
     con.ejecuta_query(sql)
     con.commit()
     con.desconectar()

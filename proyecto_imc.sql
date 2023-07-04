@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 02-07-2023 a las 21:15:07
+-- Tiempo de generación: 04-07-2023 a las 21:42:40
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -33,7 +33,17 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `nivel` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
   `seccion` varchar(2) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id_curso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`id_curso`, `nivel`, `seccion`) VALUES
+(1, 'Quinto Básico', 'A'),
+(2, 'Quinto Básico', 'B'),
+(3, 'Sexto Básico', 'A'),
+(4, 'Sexto Básico', 'B');
 
 -- --------------------------------------------------------
 
@@ -52,6 +62,13 @@ CREATE TABLE IF NOT EXISTS `estudiante` (
   PRIMARY KEY (`rut`),
   KEY `id_curso` (`id_curso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estudiante`
+--
+
+INSERT INTO `estudiante` (`rut`, `nombres`, `apellidos`, `fecha_nacimiento`, `sexo`, `id_curso`) VALUES
+('11.111.111-1', 'Bastián B', 'Zarate Z', '2000-01-01', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -85,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `password` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
   `tipo_cuenta` int NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`

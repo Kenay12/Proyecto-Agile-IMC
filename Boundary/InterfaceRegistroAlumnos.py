@@ -1,4 +1,5 @@
 from Entity.DAO.CRUD_Alumno import ingresar
+from Control.AdministradorAlumnosController import AdministradorAlumnosController
 import tkinter as tk
 from tkinter import ttk, messagebox
 
@@ -30,14 +31,11 @@ class PanelRegistroAlumnos:
         frame_body = tk.Frame(frame, height=50, bd=0, relief=tk.SOLID, bg=colorFondo)
         frame_body.pack(side="bottom", expand=tk.YES, fill=tk.BOTH)
 
-        # container form
-        self.form = tk.Frame(frame_body, height=50, relief=tk.SOLID, bd=1, bg="white")
-
         #body
         # combobox seleccionar curso
-        self.form.curso = ttk.Combobox(frame_body, state="readonly", values=["Curso 1", "Curso 2"])
-        self.form.curso.set("    Seleccionar Curso")
-        self.form.curso.pack(fill=tk.X, padx=70, pady=(0, 20), ipady=4)
+        self.curso = ttk.Combobox(frame_body, state="readonly", values=self.listaCursos())
+        self.curso.set("    Seleccionar Curso")
+        self.curso.pack(fill=tk.X, padx=70, pady=(0, 20), ipady=4)
 
         # container botones
         frame_botones = tk.Frame(frame_body, height=50, bd=0, relief=tk.SOLID, bg=colorFondo)
@@ -53,7 +51,9 @@ class PanelRegistroAlumnos:
                                 command=self.ventana.destroy)
         botonVolver.grid(column=0, row=0, sticky=tk.W, padx=(0, 10), ipadx=12)
 
-        # form
+        # container form
+        self.form = tk.Frame(frame_body, height=50, relief=tk.SOLID, bd=1, bg="white")
+
         # input rut
         labelRut = tk.Label(self.form, text="Rut:", font=("", 12), anchor="w", bg="white")
         labelRut.grid(column=0, row=0, sticky=tk.W)
@@ -92,14 +92,26 @@ class PanelRegistroAlumnos:
         self.ventana.mainloop()
 
     def mostrarForm(self):
-        curso = self.form.curso.get()
+        curso = self.curso.get()
         if curso != "    Seleccionar Curso":
             self.form.pack()
         else:
             messagebox.showerror(message="Debe seleccionar un curso", title="Mensaje")
 
     def ingresarAlumno(self):
+        cursoSeleccionado = self.curso.get().split(" (")
+        cursoSeleccionado[1] = cursoSeleccionado[1].split(")")[0]
+        for curso in self.cursos:
+            if cursoSeleccionado[0] == curso.nivel and cursoSeleccionado[1] == curso.seccion:
+                self.form.id_curso = curso.id
         if self.form.rut.get() != "" and self.form.nombres != "" and self.form.apellidos.get() != "" and self.form.fecha_nac.get() != "" and self.form.sexo.get() != "":
+            match self.form.sexo.get():
+                case "Masculino":
+                    self.form.intSexo = 0
+                case "Femenino":
+                    self.form.intSexo = 1
+                case "Otro":
+                    self.form.intSexo = 2
             try:
                 ingresar(self.form)
                 messagebox.showinfo(message="Alumno registrado con éxito!", title="Mensaje")
@@ -108,6 +120,12 @@ class PanelRegistroAlumnos:
         else:
             messagebox.showerror(message="No pueden haber campos vacios", title="Mensaje")
 
+    def listaCursos(self):
+        self.cursos = AdministradorAlumnosController().listaCursos()
+        listaCursos = []
+        for curso in self.cursos:
+            listaCursos.append("{} ({})".format(curso.nivel, curso.seccion))
+        return listaCursos
 
 
 PanelRegistroAlumnos()
