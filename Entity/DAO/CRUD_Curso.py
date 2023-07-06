@@ -16,5 +16,4 @@ def mostrarTodos():
         con.desconectar()
         return datos
     except Exception as e:
-        con.rollback()
         print("Error en Mostrar Todos: ",e)

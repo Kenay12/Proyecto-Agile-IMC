@@ -2,6 +2,7 @@ from Entity.DAO.CRUD_Alumno import ingresar
 from Control.AdministradorAlumnosController import AdministradorAlumnosController
 import tkinter as tk
 from tkinter import ttk, messagebox
+from tkcalendar import DateEntry
 
 
 class PanelRegistroAlumnos:
@@ -35,10 +36,10 @@ class PanelRegistroAlumnos:
         # combobox seleccionar curso
         self.curso = ttk.Combobox(frame_body, state="readonly", values=self.listaCursos())
         self.curso.set("    Seleccionar Curso")
-        self.curso.pack(fill=tk.X, padx=70, pady=(0, 20), ipady=4)
+        self.curso.pack(fill=tk.X, padx=70, ipady=4)
 
         # container botones
-        frame_botones = tk.Frame(frame_body, height=50, bd=0, relief=tk.SOLID, bg=colorFondo)
+        frame_botones = tk.Frame(frame_body, height=50, bd=0, relief=tk.SOLID, bg=colorFondo, pady=14)
         frame_botones.pack()
 
         # boton agregar alumno
@@ -52,7 +53,7 @@ class PanelRegistroAlumnos:
         botonVolver.grid(column=0, row=0, sticky=tk.W, padx=(0, 10), ipadx=12)
 
         # container form
-        self.form = tk.Frame(frame_body, height=50, relief=tk.SOLID, bd=1, bg="white")
+        self.form = tk.Frame(frame_body, height=50, relief=tk.SOLID, bd=1, bg="white", padx=20, pady=10)
 
         # input rut
         labelRut = tk.Label(self.form, text="Rut:", font=("", 12), anchor="w", bg="white")
@@ -64,30 +65,31 @@ class PanelRegistroAlumnos:
         labelNombres = tk.Label(self.form, text="Nombres:", font=("", 12), anchor="w", bg="white")
         labelNombres.grid(column=0, row=1, sticky=tk.W)
         self.form.nombres = tk.Entry(self.form, font=("", 12), bd=2)
-        self.form.nombres.grid(column=1, row=1, sticky=tk.E)
+        self.form.nombres.grid(column=1, row=1, sticky=tk.E, pady=4)
 
         # input apellidos
         labelApellidos = tk.Label(self.form, text="Apellidos:", font=("", 12), anchor="w", bg="white")
         labelApellidos.grid(column=0, row=2, sticky=tk.W)
         self.form.apellidos = tk.Entry(self.form, font=("", 12), bd=2)
-        self.form.apellidos.grid(column=1, row=2, sticky=tk.E)
+        self.form.apellidos.grid(column=1, row=2, sticky=tk.E, pady=4)
 
         # input fecha nacimiento
         labelFecNac = tk.Label(self.form, text="Fecha de Nacimiento:", font=("", 12), anchor="w", bg="white")
         labelFecNac.grid(column=0, row=3, sticky=tk.W)
-        self.form.fecha_nac = tk.Entry(self.form, font=("", 12), bd=2)
-        self.form.fecha_nac.grid(column=1, row=3, sticky=tk.E)
+        #self.form.fecha_nac = tk.Entry(self.form, font=("", 12), bd=2)
+        self.form.fecha_nac = DateEntry(self.form, selectmode='day', date_pattern='DD-MM-yyyy', year=2010,month=1,day=1)
+        self.form.fecha_nac.grid(column=1, row=3, sticky=tk.E, pady=4)
 
         # input sexo
         labelSexo = tk.Label(self.form, text="Sexo:", font=("", 12), anchor="w", bg="white")
         labelSexo.grid(column=0, row=4, sticky=tk.W)
         self.form.sexo = ttk.Combobox(self.form, state="readonly", values=["Masculino", "Femenino", "Otro"])
-        self.form.sexo.grid(column=1, row=4, sticky=tk.E)
+        self.form.sexo.grid(column=1, row=4, sticky=tk.E, pady=4, ipadx=21)
 
         #boton ingresar
         botonIngresar = tk.Button(self.form, text="Ingresar alumno", font=("", 12), bg=colorVerde,
                                   command=self.ingresarAlumno)
-        botonIngresar.grid(columnspan=2)
+        botonIngresar.grid(columnspan=2, pady=6)
 
         self.ventana.mainloop()
 
