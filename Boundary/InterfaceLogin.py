@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from Boundary.InterfaceCalculoIMC import InterfaceCalculadoraIMC
+from Boundary.InterfaceRegistroAlumnos import PanelRegistroAlumnos
 from Control.LoginController import LoginController
 
 
@@ -72,7 +72,7 @@ class PanelLogin:
         login = LoginController().inicioSesion(self.email.get(), self.contra.get())
         if login:
             self.ventana.destroy()
-            InterfaceCalculadoraIMC()
+            PanelRegistroAlumnos()
         else:
             messagebox.showerror(message="Credenciales Inválidas", title="Mensaje")
 

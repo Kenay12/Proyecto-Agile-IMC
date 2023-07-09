@@ -32,7 +32,7 @@ class PanelRegistroAlumnos:
         frame_body = tk.Frame(frame, height=50, bd=0, relief=tk.SOLID, bg=colorFondo)
         frame_body.pack(side="bottom", expand=tk.YES, fill=tk.BOTH)
 
-        #body
+        # body
         # combobox seleccionar curso
         self.curso = ttk.Combobox(frame_body, state="readonly", values=self.listaCursos())
         self.curso.set("    Seleccionar Curso")
@@ -77,7 +77,7 @@ class PanelRegistroAlumnos:
         labelFecNac = tk.Label(self.form, text="Fecha de Nacimiento:", font=("", 12), anchor="w", bg="white")
         labelFecNac.grid(column=0, row=3, sticky=tk.W)
         #self.form.fecha_nac = tk.Entry(self.form, font=("", 12), bd=2)
-        self.form.fecha_nac = DateEntry(self.form, selectmode='day', date_pattern='DD-MM-yyyy', year=2010,month=1,day=1)
+        self.form.fecha_nac = DateEntry(self.form, selectmode='day', date_pattern='DD-MM-yyyy', year=2020,month=1,day=1)
         self.form.fecha_nac.grid(column=1, row=3, sticky=tk.E, pady=4)
 
         # input sexo
@@ -107,18 +107,26 @@ class PanelRegistroAlumnos:
             if cursoSeleccionado[0] == curso.nivel and cursoSeleccionado[1] == curso.seccion:
                 self.form.id_curso = curso.id
         if self.form.rut.get() != "" and self.form.nombres != "" and self.form.apellidos.get() != "" and self.form.fecha_nac.get() != "" and self.form.sexo.get() != "":
-            match self.form.sexo.get():
-                case "Masculino":
-                    self.form.intSexo = 0
-                case "Femenino":
-                    self.form.intSexo = 1
-                case "Otro":
-                    self.form.intSexo = 2
-            try:
-                ingresar(self.form)
-                messagebox.showinfo(message="Alumno registrado con éxito!", title="Mensaje")
-            except Exception as e:
-                messagebox.showerror(message="Error: {}".format(e), title="Error al ingresar alumno")
+            if AdministradorAlumnosController().validarFechaNac(self.form.fecha_nac.get()):
+                match self.form.sexo.get():
+                    case "Masculino":
+                        self.form.intSexo = 0
+                    case "Femenino":
+                        self.form.intSexo = 1
+                    case "Otro":
+                        self.form.intSexo = 2
+                try:
+                    ingresar(self.form)
+                    messagebox.showinfo(message="Alumno registrado con éxito!", title="Mensaje")
+                    self.form.rut.delete(0, 'end')
+                    self.form.nombres.delete(0, 'end')
+                    self.form.apellidos.delete(0, 'end')
+                    self.form.fecha_nac.delete(0, 'end')
+                    self.form.sexo.delete(0, 'end')
+                except Exception as e:
+                    messagebox.showerror(message="Error: {}".format(e), title="Error al ingresar alumno")
+            else:
+                messagebox.showerror(message="Fecha inválida", title="Mensaje")
         else:
             messagebox.showerror(message="No pueden haber campos vacios", title="Mensaje")
 
@@ -128,6 +136,3 @@ class PanelRegistroAlumnos:
         for curso in self.cursos:
             listaCursos.append("{} ({})".format(curso.nivel, curso.seccion))
         return listaCursos
-
-
-PanelRegistroAlumnos()
