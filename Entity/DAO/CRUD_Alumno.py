@@ -1,3 +1,4 @@
+
 from Entity.DTO.Conexion import Conexion
 
 
@@ -16,6 +17,7 @@ def ingresar(estudiante):
     con.ejecuta_query(sql)
     con.commit()
     con.desconectar()
+
 def consultaParticular(nivel,seccion):
     try:
         con = Conexion(host, user, password, db)
@@ -27,3 +29,5 @@ def consultaParticular(nivel,seccion):
     except Exception as e:
         con.rollback()
         print(e)
+
+

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 23-06-2023 a las 16:21:38
+-- Tiempo de generación: 04-07-2023 a las 21:42:40
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -24,6 +24,55 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `curso`
+--
+
+DROP TABLE IF EXISTS `curso`;
+CREATE TABLE IF NOT EXISTS `curso` (
+  `id_curso` int NOT NULL AUTO_INCREMENT,
+  `nivel` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `seccion` varchar(2) COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id_curso`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`id_curso`, `nivel`, `seccion`) VALUES
+(1, 'Quinto Básico', 'A'),
+(2, 'Quinto Básico', 'B'),
+(3, 'Sexto Básico', 'A'),
+(4, 'Sexto Básico', 'B');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estudiante`
+--
+
+DROP TABLE IF EXISTS `estudiante`;
+CREATE TABLE IF NOT EXISTS `estudiante` (
+  `rut` varchar(12) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombres` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellidos` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fecha_nacimiento` date NOT NULL,
+  `sexo` int NOT NULL,
+  `id_curso` int DEFAULT NULL,
+  PRIMARY KEY (`rut`),
+  KEY `id_curso` (`id_curso`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `estudiante`
+--
+
+INSERT INTO `estudiante` (`rut`, `nombres`, `apellidos`, `fecha_nacimiento`, `sexo`, `id_curso`) VALUES
+('11.111.111-1', 'Bastián B', 'Zarate Z', '2000-01-01', 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `imc`
 --
 
@@ -36,18 +85,47 @@ CREATE TABLE IF NOT EXISTS `imc` (
   `peso` float NOT NULL,
   `altura` float NOT NULL,
   `rut_estudiante` varchar(12) COLLATE utf8mb4_spanish_ci NOT NULL,
-  PRIMARY KEY (`id_imc`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  PRIMARY KEY (`id_imc`),
+  KEY `rut` (`rut_estudiante`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `imc`
+-- Estructura de tabla para la tabla `usuario`
 --
 
-INSERT INTO `imc` (`id_imc`, `valor`, `rango`, `fecha`, `peso`, `altura`, `rut_estudiante`) VALUES
-(8, 2, 'Obesidad', '2023-06-22', 90, 1, '20.938.943-6'),
-(9, 2, 'Obesidad', '2023-06-22', 90, 1, '123321'),
-(10, 2, 'Sobrepeso', '2023-06-22', 90, 1.85, 'yfdfds'),
-(11, 2, 'Sobrepeso', '2023-06-22', 90, 1.85, 'yfdfds');
+DROP TABLE IF EXISTS `usuario`;
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `password` varchar(100) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tipo_cuenta` int NOT NULL,
+  PRIMARY KEY (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `tipo_cuenta`) VALUES
+(1, 'a@b.cl', '123', 0);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `estudiante`
+--
+ALTER TABLE `estudiante`
+  ADD CONSTRAINT `estudiante_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `imc`
+--
+ALTER TABLE `imc`
+  ADD CONSTRAINT `imc_ibfk_1` FOREIGN KEY (`rut_estudiante`) REFERENCES `estudiante` (`rut`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

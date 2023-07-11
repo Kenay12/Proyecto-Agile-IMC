@@ -2,7 +2,6 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from Control.AdministradorReporteController import AdministradorReporteController
-import mysql.connector
 from tkinter import messagebox
 from openpyxl import Workbook
 
@@ -46,9 +45,6 @@ class InterfaceReporteIMC:
         # Frame
         tituloReportFrame = Frame(self.ventanaReport)
         tituloReportFrame.pack()
-
-
-
 
 
         #Titulo

@@ -1,7 +1,9 @@
+
 import tkinter as tk
 from tkinter import ttk, messagebox
 from Control.LoginController import LoginController
 from Boundary.InterfaceReporteIMC import InterfaceReporteIMC
+from Boundary.InterfaceRegistroAlumnos import PanelRegistroAlumnos
 
 
 class PanelLogin:
@@ -78,3 +80,4 @@ class PanelLogin:
 
     def recuperarContra(self):
         messagebox.showinfo(title="Recuperar Contraseña", message="Contacte con el administrador")
+

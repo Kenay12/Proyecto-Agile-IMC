@@ -31,3 +31,6 @@ def consultaParticular(email):
     except Exception as e:
         con.rollback()
         print(e)
+
+
+
