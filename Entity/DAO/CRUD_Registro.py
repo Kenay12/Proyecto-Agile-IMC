@@ -2,8 +2,8 @@ from Entity.DTO.Conexion import Conexion
 
 
 host = "localhost"
-user = "imc_usuario"
-password = "123"
+user = "root"
+password = ""
 db = "proyecto_imc"
 
 
@@ -78,3 +78,8 @@ def consultaParcial(cantidad):
     except Exception as e:
         con.rollback()
         print("Error en Consulta Parcial: ",e)
+
+
+
+
+
